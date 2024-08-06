@@ -421,6 +421,8 @@ FMT_CONSTEXPR20 auto fill_n(T* out, Size count, char value) -> T* {
 
 #ifdef __cpp_char8_t
 using char8_type = char8_t;
+#elif __clang__
+using char8_type = char;
 #else
 enum char8_type : unsigned char {};
 #endif
@@ -542,10 +544,10 @@ FMT_CONSTEXPR inline size_t compute_width(string_view s) {
   return num_code_points;
 }
 
-inline auto compute_width(basic_string_view<char8_type> s) -> size_t {
+/*inline auto compute_width(basic_string_view<char8_type> s) -> size_t {
   return compute_width(basic_string_view<char>(
       reinterpret_cast<const char*>(s.data()), s.size()));
-}
+}*/
 
 template <typename Char>
 inline auto code_point_index(basic_string_view<Char> s, size_t n) -> size_t {
